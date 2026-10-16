@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+
+:root { color-scheme: dark; }
+html, body { background: #05070d; color: #edeff5; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+body { overscroll-behavior: none; }
+
+@keyframes fadeout { to { opacity: 0; } }
+
+@layer components {
+  .eyebrow { @apply text-[11px] tracking-[0.32em] font-semibold text-cyan-300; }
+  .glass { @apply rounded-2xl border border-white/10 bg-[#0b0e18]/70 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.8)]; }
+  .chip { @apply inline-block rounded-full border border-white/12 bg-white/5 px-2.5 py-1 text-[12px] text-slate-200; }
+  .tag { @apply inline-block rounded-full border border-amber-400/50 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-amber-300; }
+  .btn-primary { @apply inline-flex items-center gap-2 rounded-full bg-cyan-300 px-5 py-3 text-[14px] font-semibold text-[#04121a] transition hover:bg-cyan-200 hover:shadow-[0_0_30px_rgba(34,211,238,0.55)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200; }
+  .btn-ghost { @apply inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#0b0d14]/50 px-5 py-3 text-[14px] font-semibold text-slate-100 backdrop-blur transition hover:border-cyan-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200; }
+
+  /* in-world hologram for projects */
+  .holo {
+    position: relative; width: 520px; padding: 28px 30px; border-radius: 18px; overflow: hidden;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 16%, transparent), rgba(8,12,22,0.82) 55%);
+    border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
+    box-shadow: 0 0 60px -10px var(--accent), inset 0 0 40px -20px var(--accent);
+    opacity: 0; transform: translateY(30px) scale(0.92); filter: blur(6px);
+    transition: opacity .6s ease, transform .7s cubic-bezier(.2,.8,.2,1), filter .6s ease;
+  }
+  .holo--on { opacity: 1; transform: none; filter: none; }
+  .holo--compact { width: auto; padding: 18px 18px; }
+  .holo__scan { position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 4px); }
+
+  /* case-study destination signs */
+  .sign {
+    width: 420px; padding: 20px 22px; border-radius: 14px;
+    background: rgba(8,11,20,0.78); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    box-shadow: 0 0 40px -12px var(--accent); transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s;
+  }
+  .sign--near { transform: scale(1.06); box-shadow: 0 0 80px -6px var(--accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ---------------- Butterfly case study ---------------- */
+html, body { overflow-x: clip; }
+.bf-page { color-scheme: light; font-family: Inter, system-ui, sans-serif; }
+.bf-reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+.bf-reveal--on { opacity: 1; transform: none; }
+@keyframes bf-flap { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(.35); } }
+.bf-flutter { animation: bf-flap .32s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes bf-drift { 0% { transform: translate(0,0) rotate(-8deg); } 50% { transform: translate(60px,-30px) rotate(6deg); } 100% { transform: translate(0,0) rotate(-8deg); } }
+.bf-drift { animation: bf-drift 9s ease-in-out infinite; }
+.bf-drift--2 { animation-duration: 12s; animation-delay: -4s; }
+@media (prefers-reduced-motion: reduce) {
+  .bf-reveal { opacity: 1; transform: none; }
+  .bf-flutter, .bf-drift { animation: none; }
+}
+
+/* ---------------- Cinematic intro ---------------- */
+.cine { font-family: Inter, system-ui, sans-serif; }
+.cine-corner { position: absolute; width: 22px; height: 22px; border-color: rgba(255,255,255,.55); }
+.cine-chroma { text-shadow: -3px 0 rgba(239,68,68,.6), 3px 0 rgba(59,130,246,.65), 0 8px 40px rgba(0,0,0,.6); }
+@keyframes cine-pulse { 0%,100% { opacity: .35 } 50% { opacity: 1 } }
+.cine-pulse { animation: cine-pulse 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .cine-pulse { animation: none; } .cine-chroma { text-shadow: 0 8px 40px rgba(0,0,0,.6); } }
+.font-display-x { font-family: Anton, "Bebas Neue", Impact, "Arial Narrow Bold", "Arial Narrow", "Liberation Sans Narrow", "DejaVu Sans Condensed", sans-serif; font-weight: 400; }
+
+/* ======================= NOIR HOMEPAGE ======================= */
+.nx { font-family: Inter, system-ui, sans-serif; }
+.nx .font-\[Anton\], .nx-bigword, .nx-sign { font-family: Anton, "Bebas Neue", Impact, "Arial Narrow", sans-serif; }
+.nx-bigword { font-size: 300px; letter-spacing: 10px; }
+.nx-sign { font-size: 19px; }
+.nx-logo { width: 12px; height: 12px; transform: rotate(45deg); background: #ff2d4d; box-shadow: 0 0 14px #ff2d4d, 0 0 30px rgba(255,45,77,.6); }
+.nx-link { padding: 8px 12px; color: rgba(255,255,255,.75); transition: color .2s; }
+.nx-link:hover { color: #fff; text-shadow: 0 0 12px #ff2d4d; }
+.nx-btn { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; font-weight: 700; font-size: 13px; letter-spacing: .18em; color: #fff;
+  background: linear-gradient(180deg,#ff3d5a,#d1112f); border-radius: 2px; clip-path: polygon(0 0, 100% 0, 100% 70%, 92% 100%, 0 100%);
+  box-shadow: 0 0 0 1px rgba(255,120,140,.5) inset, 0 10px 40px -8px rgba(255,45,77,.9), 0 0 60px -10px rgba(255,45,77,.8); transition: transform .25s, box-shadow .25s, filter .25s; }
+.nx-btn:hover { transform: translateY(-2px); filter: brightness(1.12); box-shadow: 0 0 0 1px rgba(255,180,190,.8) inset, 0 14px 50px -6px rgba(255,45,77,1), 0 0 90px -6px rgba(255,45,77,.9); }
+.nx-btn:focus-visible, .nx-card:focus-visible, .nx-link:focus-visible { outline: 2px solid #ff8095; outline-offset: 3px; }
+.nx-btn--ghost { background: rgba(10,4,6,.55); backdrop-filter: blur(6px); box-shadow: 0 0 0 1px rgba(255,255,255,.35) inset; }
+.nx-btn--ghost:hover { box-shadow: 0 0 0 1px #ff2d4d inset, 0 0 40px -8px rgba(255,45,77,.9); }
+.nx-btn--sm { padding: 10px 16px; font-size: 11px; }
+.nx-glowtext { text-shadow: 0 0 18px rgba(255,45,77,.9), 0 0 40px rgba(255,45,77,.5); }
+.nx-card { position: relative; display: block; padding: 22px 22px 18px; border-radius: 4px; overflow: hidden;
+  background: linear-gradient(160deg, rgba(40,6,14,.75), rgba(8,3,5,.85)); backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgba(255,45,77,.28) inset, 0 30px 60px -30px rgba(0,0,0,.9); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+.nx-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 40%, rgba(255,80,100,.18) 50%, transparent 60%); transform: translateX(-100%); transition: transform .7s; }
+.nx-card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px #ff2d4d inset, 0 0 50px -10px rgba(255,45,77,.9), 0 30px 60px -30px #000; }
+.nx-card:hover::before { transform: translateX(100%); }
+.nx-card__n { position: absolute; right: 16px; top: 8px; font-family: Anton, Impact, sans-serif; font-size: 54px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(255,45,77,.55); }
+.nx-card__arrow { transition: transform .3s; } .nx-card:hover .nx-card__arrow { transform: translateX(6px); }
+.nx-grade { background: radial-gradient(70% 60% at 65% 35%, rgba(255,45,77,.28), transparent 70%), linear-gradient(0deg, rgba(3,2,3,.95) 10%, transparent 55%); }
+.nx-vignette { background: radial-gradient(120% 90% at 60% 40%, transparent 45%, rgba(0,0,0,.85) 100%), linear-gradient(90deg, rgba(3,2,3,.82) 0%, rgba(3,2,3,.35) 38%, transparent 60%); }
+@media (max-width: 767px) { .nx-vignette { background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(0,0,0,.85) 100%), linear-gradient(0deg, rgba(3,2,3,.95) 0%, rgba(3,2,3,.6) 40%, transparent 65%); } }
+.nx-scan { background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px); mix-blend-mode: overlay; }
+.nx-last { text-shadow: 0 10px 50px rgba(0,0,0,.6); }
+.nx-rgb .nx-last, .nx-rgb .nx-pathhead h2 { text-shadow: -4px 0 rgba(255,45,77,.9), 4px 0 rgba(80,220,255,.8); transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { .nx-card, .nx-btn, .nx-card::before { transition: none; } }
+
+/* ================= TRIBUTE · SCENE 1 ================= */
+.t1 { font-family: Inter, system-ui, sans-serif; }
+.t1-display { font-family: Anton, "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; }
+.t1-chroma { text-shadow: -2px 0 rgba(232,32,47,.7), 2px 0 rgba(47,107,255,.7), 0 8px 40px rgba(0,0,0,.7); }
+.t1-chroma-strong { text-shadow: -4px 0 rgba(255,255,255,.35), 4px 0 rgba(47,107,255,.75), 0 0 40px rgba(232,32,47,.45), 0 10px 50px rgba(0,0,0,.7); }
+@media (prefers-reduced-motion: reduce) { .t1-chroma, .t1-chroma-strong { text-shadow: 0 8px 40px rgba(0,0,0,.7); } }
+
+/* ---------- cinematic site pages ---------- */
+.halftone { background-image: radial-gradient(circle, rgba(0,0,0,.6) 1px, transparent 1.7px); background-size: 5px 5px; mix-blend-mode: multiply; }
+@keyframes breathe { 0%,100% { transform: scale(.92); opacity: .5 } 50% { transform: scale(1.04); opacity: 1 } }
+.breathe { animation: breathe 6s ease-in-out infinite; }
+.route-wipe span { position: absolute; left: 0; right: 0; transform: translateX(-101%); }
+.route-wipe .rw-a { top: 0; height: 100%; background: #000; animation: rw 0.9s cubic-bezier(.7,0,.2,1) forwards; }
+.route-wipe .rw-b { top: 38%; height: 6px; background: #e8202f; box-shadow: 0 0 24px #e8202f; animation: rw 0.9s .05s cubic-bezier(.7,0,.2,1) forwards; }
+.route-wipe .rw-c { top: 60%; height: 3px; background: #2f6bff; box-shadow: 0 0 20px #2f6bff; animation: rw 0.9s .1s cubic-bezier(.7,0,.2,1) forwards; }
+@keyframes rw { 0% { transform: translateX(-101%) } 45%,55% { transform: translateX(0) } 100% { transform: translateX(101%) } }
+@media (prefers-reduced-motion: reduce) { .breathe, .route-wipe span { animation: none !important; display: none; } }
+
+
+/* ---------- final scene (compositor-only animations: transform/opacity) ---------- */
+.fs-lights { background: radial-gradient(45% 55% at 12% 85%, rgba(232,32,47,.30), transparent 70%), radial-gradient(40% 50% at 88% 20%, rgba(47,107,255,.26), transparent 70%); }
+@keyframes fsLights { 0% { transform: translate3d(-3%, 2%, 0) scale(1) } 100% { transform: translate3d(3%, -2%, 0) scale(1.08) } }
+.fs-mote { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(170,200,255,.75); box-shadow: 0 0 6px rgba(120,160,255,.8); animation: fsMote linear infinite; will-change: transform; }
+.fs-mote:nth-child(3n) { background: rgba(255,120,130,.7); box-shadow: 0 0 6px rgba(232,32,47,.8); }
+@keyframes fsMote { from { transform: translate3d(0, -10vh, 0) } to { transform: translate3d(-6vw, 110vh, 0) } }
+@media (prefers-reduced-motion: reduce) { .fs-lights, .fs-mote { animation: none } .fs-mote { display: none } }
+
+/* ---------- wireframe mode: the same screens, as low-fidelity structure ---------- */
+.wf .scr { background: #FAFAFA !important; }
+.wf .t { color: transparent !important; background: #D4D4D4; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; text-shadow: none !important; text-decoration: none !important; }
+.wf .g { background: #EDEDED !important; background-image: none !important; border-color: #BDBDBD !important; box-shadow: none !important; color: transparent !important; transform: none !important; filter: none !important; }
+.wf .g .g { background: #E2E2E2 !important; }
+.wf .scr > div:first-child { color: #9CA3AF !important; }
+.wf .breathe { animation: none; }
+
+/* Scene 1 — wordless scroll cue */
+@keyframes cf-scroll { 0% { transform: translate(-50%, 0); opacity: 0 } 25% { opacity: 1 } 80% { transform: translate(-50%, 14px); opacity: 0 } 100% { opacity: 0 } }
+.cf-dot { animation: cf-scroll 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .cf-dot { animation: none; opacity: .8 } }
+
+/* dimensional portal (opening lens → multiverse) */
+@keyframes portal-spin { to { transform: rotate(360deg); } }
+
+/* movie mode: keep the item panels clear of the playback controls */
+:root[data-story-mode="movie"] [data-mv-panel] { margin-bottom: 64px; }
